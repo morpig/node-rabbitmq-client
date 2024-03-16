@@ -227,7 +227,7 @@ export class Consumer extends EventEmitter {
         } else if (retval === ConsumerStatus.REQUEUE) {
           ch.basicNack({deliveryTag: msg.deliveryTag, requeue: true})
           ++this.stats.requeued
-        } else {
+        } else if (retval === ConsumerStatus.ACK) {
           ch.basicAck({deliveryTag: msg.deliveryTag})
           ++this.stats.acknowledged
         }
